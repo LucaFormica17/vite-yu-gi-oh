@@ -2,6 +2,7 @@
   import AppHeader from './components/AppHeader.vue';
   import AppMain from './components/AppMain.vue';
   import Loader from './components/Loader.vue';
+  import Filter from './components/Filter.vue';
   
   import axios from 'axios';
   import { store } from './store.js';
@@ -10,7 +11,8 @@
   components:{
     AppHeader,
     AppMain,
-    Loader
+    Loader,
+    Filter
   },
   data() {
         return {
@@ -22,10 +24,16 @@
     },
   methods: {
       createCard(){
+        if(store.search != ''){
+          store.apiUrl += `&archetype=${store.search}`
+        }
           axios.get(store.apiUrl).then((response) => {
               store.cardsList = response.data.data;
               store.loading = false;
           });
+      },
+      filterCards(){
+        this.createCard();
       }
     },
   }
@@ -36,6 +44,7 @@
     <Loader v-if="store.loading"/>
     <div v-else>
       <AppHeader />
+      <Filter @filter_cards="filterCards"/>
       <AppMain />
     </div>
   </div>
