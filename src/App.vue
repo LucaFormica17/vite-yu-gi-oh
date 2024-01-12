@@ -3,6 +3,7 @@
   import AppMain from './components/AppMain.vue';
   import Loader from './components/Loader.vue';
   import Filter from './components/Filter.vue';
+  import ViewResult from './components/ViewResult.vue';
   
   import axios from 'axios';
   import { store } from './store.js';
@@ -12,7 +13,8 @@
     AppHeader,
     AppMain,
     Loader,
-    Filter
+    Filter,
+    ViewResult
   },
   data() {
         return {
@@ -45,6 +47,7 @@
     <div v-else>
       <AppHeader />
       <Filter @filter_cards="filterCards"/>
+      <ViewResult />
       <AppMain />
     </div>
   </div>
